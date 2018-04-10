@@ -1,0 +1,16 @@
+@startuml
+|读者|
+start
+repeat
+	:读者登录;
+	|系统|
+	:判断账号密码正确;
+repeat while (登录成功?)
+|读者|
+:取消预定;
+|系统|
+:库存加1;
+|读者|
+:取消成功;
+stop
+@enduml

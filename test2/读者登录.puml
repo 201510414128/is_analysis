@@ -1,0 +1,16 @@
+@startuml
+|读者|
+start
+repeat
+:输入账号;
+:输入密码;
+	|系统|
+	:判断账号密码正确;
+repeat while (登录成功?)
+
+:返回读者个人主页;
+|读者|
+:进入个人主页;
+
+stop
+@enduml

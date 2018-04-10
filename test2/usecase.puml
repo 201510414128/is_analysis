@@ -1,0 +1,45 @@
+@startuml
+
+
+skinparam packageStyle rectangle
+
+:图书管理员: as manage
+:游客: as visitor
+:读者: as reader
+
+reader <|- visitor
+rectangle  {
+	left to right direction
+	manage -> (管理员登录)
+	manage -> (维护图书)
+	manage --> (借出图书)
+	manage -> (归还图书)
+	manage -> (维护读者信息)
+
+	visitor --> (查询图书)
+
+	reader -> (读者登录)
+	reader -> (查询借阅情况)
+	reader -> (预定图书)
+	reader -> (取消预定)
+
+
+	(借出图书) .> (归还图书) : extends
+	(预定图书) .> (取消预定) : extends
+	(借出图书) .> (维护图书) : include
+	(归还图书) .> (维护图书) : include
+
+
+
+}
+
+skinparam handwritten true
+skinparam usecase {
+	BackgroundColor pink
+	BorderColor Gray
+	ArrowColor black
+	ActorBorderColor black
+	ActorFontName Courier
+
+}
+@enduml
