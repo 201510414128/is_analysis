@@ -1,0 +1,25 @@
+@startuml
+Title 学生个人课程算法图
+
+actor 课程列表主页面
+actor API服务
+database 数据库存储
+
+== 学生主页面 ==
+课程列表主页面->API服务:传入用户的users_id、type和选择的学期term
+API服务->API服务:首先判断type是否为学生，再判断user_id的合法性
+API服务->数据库存储:获取该学生学期term约束，联合查询courses_teachers表
+数据库存储->数据库存储:通过courses_students表中的courses_teachers_id查询courses_teachers表和teachers表，获取老师姓名，加入course_students列表中
+数据库存储->API服务:返回符合条件的课程course记录
+数据库存储->数据库存储:选择课程，加入到coursesBy_stu列表中
+数据库存储->API服务:返回学生已选课程course记录
+API服务->课程列表主页面 :返回指定学期的已选择课程coursesBy_stu集合
+== 老师主页面 ==
+课程列表主页面->API服务:传入用户users_id，再判断user_id的合法性
+API服务->API服务:首先判断type是否为老师，再判断user_id的合法性
+API服务->数据库存储:获取老师的所属部门字段，并加上学期term约束，联合查询courses_teachers表
+数据库存储->数据库存储:选择课程，加入到coursesBy_tea列表中
+数据库存储->API服务:返回老师已选课程course记录
+API服务->课程列表主页面 :返回指定学期的已选择课程coursesBy_tea集合
+== 登录后正常使用，\n每次请求都会访问API==
+@enduml

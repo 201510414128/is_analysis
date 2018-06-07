@@ -1,0 +1,93 @@
+@startuml
+title 基于GitHub的实验管理平台--类图
+class users {
+     <b>user_id</b> （用户ID）
+        name （用户真实姓名）
+        github_username （用户GitHub账号）
+        update_date （用户GitHub账号修改日期）
+        password （用户密码）
+}
+class teachers{
+  <b>teacher_id</b> （老师工号）
+      USER_ID （老师的用户ID）
+      department （老师所属部门）
+}
+class department {
+    <b>DEPARTMENT_ID</b> （部门编号）
+    DEPARTMENT_NAME （部门名称）
+}
+class students{
+   <b>students_id</b> （学号）
+       USER_ID （老师的用户ID）
+       major （学生专业班级|）
+}
+users <|-- teachers
+users <|--students
+department -|> teachers
+class term {
+    <b>term_id</b> （学期编号）
+    courses_ID	 （该学期开课课程）
+}
+
+class courses_teachers {
+    <b>course_id</b> （课程编号）
+     teachers_id （老师编号）
+     term_id （学期编号）
+     course_name （课程名称）
+     course_term	 （开课学期）
+}
+
+class courses_students {
+    <b>course_id</b> （课程编号）
+    students_id （学生学号）
+    term_id （学期编号）
+    course_name_teachers （老师授课课程名称）
+    course_term	 （开课学期）
+}
+
+class coursesBy_tea {
+    <b>course_id</b> （课程编号）
+     term_id （学期编号）
+     course_name （课程名称）
+     course_term	 （开课学期）
+}
+
+class coursesBy_stu {
+    <b>course_id</b> （课程编号）
+    term_id （学期编号）
+    course_name_teachers （老师授课课程名称）
+    course_term	 （开课学期）
+}
+
+class test {
+    <b>course_id</b> （实验课程号）
+    <b>test_id</b> （实验编号）
+    <b>student_id</b> （学号）
+       test_name（实验名称）
+       test_content	（实验内容）
+       test_time （批改日期）
+}
+
+class grades {
+    <b>term_id</b> （学期id）
+	<b>course_id</b> （课程编号）
+    <b>student_id</b> （学生id）
+    grades_avg （课程平均成绩）
+    test_ID （实验id）
+    test_score （实验总成绩）
+    test_score_part （评分项成绩）
+    MEMO （任课老师对学生评语）
+    UPDATE_DATE （评改日期）
+    course_web_sum	（学生该课程GitHub网址是否正确）
+}
+
+students "1" -- "n" term
+teachers "1" -- "n" term
+term "1" -- "n" courses_students
+term "1" -- "n" courses_teachers
+courses_teachers  -->  coursesBy_tea
+coursesBy_tea "1" -- "n" test
+courses_students  -->  coursesBy_stu
+coursesBy_stu "1" -- "n" grades
+test "1" - "n" grades
+@enduml

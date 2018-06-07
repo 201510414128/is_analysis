@@ -1,0 +1,17 @@
+@startuml
+
+Title 老师选课列表算法图
+
+actor 老师选课列表
+actor API服务
+database 数据库存储
+
+== 老师主页面 ==
+老师选课列表->API服务:传入老师的teacher_id
+API服务->API服务:判断teacher_id的合法性
+API服务->数据库存储:访问courses_teachers表中是否有对应课程字段
+数据库存储->API服务:返回课程course_teachers信息
+API服务->老师选课列表:返回所有可选的课程列表
+== 老师登录后正常使用，\n每次请求都会访问API==
+
+@enduml

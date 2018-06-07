@@ -1,0 +1,12 @@
+@startuml
+title 基于GitHub的实验管理平台--个人课表列表的顺序图
+
+actor users
+alt 如果users是teachers
+	users -> courses:根据老师的teachers_id查询在指定学期专业下的已选的授课列表
+	courses --> users :返回对应的课程列表
+else 如果users是students
+    users --> courses:根据学生的students_id查询在指定学期专业下的已选的课程列表
+    courses --> users :返回对应的课程列表
+end
+@enduml

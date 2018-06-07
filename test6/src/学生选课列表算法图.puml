@@ -1,0 +1,17 @@
+@startuml
+
+Title 学生选课列表算法图
+
+actor 学生选课列表
+actor API服务
+database 数据库存储
+
+== 学生主页面 ==
+学生选课列表->API服务:传入老师的students_id
+API服务->API服务:判断students_id的合法性
+API服务->数据库存储:访问courses_students表中是否有对应课程字段
+数据库存储->API服务:返回课程courses_students信息
+API服务->学生选课列表:返回所有可选的课程列表
+== 登录后正常使用，\n每次请求都会访问API==
+
+@enduml

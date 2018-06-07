@@ -1,0 +1,8 @@
+@startuml
+title 基于GitHub的实验管理平台--学生列表用例的顺序图
+    actor teachers
+        teachers --> term :老师选择学期
+        term --> courses :进行课程选择
+        courses --> students :根据学期和课程查询学生列表
+        students-->teachers:返回某课程学生列表
+@enduml
